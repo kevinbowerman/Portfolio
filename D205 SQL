@@ -1,0 +1,30 @@
+DROP TABLE services_addon;
+
+CREATE TABLE services_addon (
+	patient_id varchar(12),
+	Services varchar(24),
+	Overweight varchar(3),
+	Arthritis varchar(3),
+	Diabetes varchar(3),
+	Hyperlipidemia varchar(3),
+	BackPain varchar(3),
+	Anxiety varchar(3),
+	Allergic_rhinitis varchar(3),
+	Reflux_esophagitis varchar(3),
+	Asthma varchar(3),
+	FOREIGN KEY (patient_id) REFERENCES patient (patient_id)
+);
+
+
+SELECT s.*, p.age, p.income, p.children, p.totalcharge, j.job_title
+	FROM patient AS p
+	INNER JOIN services_addon AS s
+	ON p.patient_id = s.patient_id
+	INNER JOIN job AS J
+	ON p.job_id = j.job_id
+		WHERE p.age BETWEEN 27 AND 40
+		AND p.income > 3000
+		AND p.children >= 1
+		AND p.marital = 'Divorced'
+	ORDER BY s.services;
+		
